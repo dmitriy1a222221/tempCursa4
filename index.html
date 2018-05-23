@@ -5,21 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="main.js" defer>  
     </script>
 </head>
 <body>
-<canvas id="myCanvas" width="600" height="500" style="border:1px solid #d3d3d3;">
-    Your browser does not support the HTML5 canvas tag.
-</canvas>
-<select id="selectElement">
-    <option>План 1</option>
-    <option>План 2</option>
-    <option>План 3</option>
-</select>
-<button onclick="sel()">Застосувати</button>
-<button onclick="update()">Старт</button>
+    <header class="header">
+        <h1>---------------Wi-Fi Pro Planer---------------</h1>
+    </header>
+    <main class="main">
+        <canvas id="myCanvas" width="600" height="500" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <div class="wrapp-config-elem">
+            <select id="selectElement">
+                <option>План 1</option>
+                <option>План 2</option>
+                <option>План 3</option>
+            </select>
+            <button onclick="sel()">Застосувати</button>
+            <button onclick="update()">Старт</button>
+            <button onclick="update_1()">Старт_1</button>
+            <button onclick="update_2()">Старт_2</button>
+        </div>
+
+    </main>
+
+
+<footer class="footer">
+    <div class="wrapper_footer-element">
+        <p>Copyright 2018. Studio DmitriKas.<br> All Rights Reserved.</p>
+        <div class="iconsBlock">
+            <a href="https://www.facebook.com/"><i size="30px" class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/feed/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

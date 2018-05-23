@@ -1,3 +1,82 @@
+
+body{
+    background-image: url("fn.png");
+}
+.header {
+    width: 100%;
+    height: 60px;
+    background-color: silver;
+    margin-bottom: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1 {
+    font-family: Algerian;
+    font-size: 2em;
+    color: #777477;
+}
+.main {
+    display: flex;
+
+}
+#myCanvas {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 40px;
+}
 #selectElement {
     display: inline-block;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.footer {
+    width: 100%;
+    height: 80px;
+    background-color: silver;
+    display: flex;
+    align-items: center;
+
+}
+.wrapper_footer-element {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer p {
+    font-family: "Baskerville Old Face";
+    color: #818185;
+    font-size: 0.9em;
+    margin-right: 100px;
+    transition: all .2s;
+}.footer p:hover {
+    color: #4c4c50;
+     transform: scale(1.1);
+}
+.iconsBlock a:nth-child(1) i {
+    color: #9ea0bd;
+    font-size: 30px;
+    transition: transform 0.3s ease;
+    margin-right: 10px;
+}
+.iconsBlock a:nth-child(1) i:hover {
+    color: #6681ff;
+    font-size: 30px;
+    transform: scale(1.3);
+}
+
+.iconsBlock a:nth-child(2) i {
+    color: #9ea0bd;
+    font-size: 30px;
+    transition: transform 0.3s ease;
+}
+.iconsBlock a:nth-child(2) i:hover {
+    color: #6681ff;
+    font-size: 30px;
+    transform: scale(1.3);
 }

@@ -153,14 +153,45 @@ function intersection(x11, y11, x12, y12, x21, y21, x22, y22){
             && intersect_1 (x11, x12, x21, x22) && intersect_1 (y11, y12, y21, y22);
 }
 
+function intersection_dubl_1(x11, y11, x12, y12, x21, y21, x22, y22){
+    // Упорядочим координаты
+    if(x21 > x22) [x21, x22] = [x22, x21];
+    if(y21 > x22) [y21, y22] = [y22, y21];
+
+    // Это я стырил
+    const A1 = y11-y12;
+    const B1 = x12-x11;
+    const C1 = -A1*x11 - B1*y11;
+
+    const A2 = y21-y22;
+    const B2 = x22-x21;
+    const C2 = -A2*x21 - B2*y21;
+
+    var zn = det (A1, B1, A2, B2);
+    if (zn !== 0) {
+        const x = -det(C1, B1, C2, B2) / zn;
+        const y = -det(A1, C1, A2, C2) / zn;
+        return between (x11, x12, x) && between (y11, y12, y)
+            && between (x21, x22, x) && between (y21, y22, y);
+    }else
+        return det (A1, C1, A2, C2) === 0 && det (B1, C1, B2, C2) === 0
+            && intersect_1 (x11, x12, x21, x22) && intersect_1 (y11, y12, y21, y22);
+}
+//-------------------------------------------------------
+function drawWalls() {
+    // Рисуем стенки:
+    context.fillStyle = 'rgba(255, 255, 255, 255)';
+    walls.forEach(wall => context.fillRect(...wall));
+}
+
+//-------------------------------------------------------
 function update() { // рисую план, и точку доступа
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // Рисуем стенки:
-    context.fillStyle = 'rgba(7, 0, 0, 255)';
-    walls.forEach(wall => context.fillRect(...wall));
+    drawWalls();
     // Рисуем точку:
-    context.fillStyle = 'red';
+
     context.beginPath();
+    context.fillStyle = 'green';
     context.arc(mouseX, mouseY, 8, 0, 2 * Math.PI, true);
     context.fill();
     context.closePath();
@@ -190,4 +221,86 @@ function update() { // рисую план, и точку доступа
     }
 
     requestAnimationFrame(update);
+}
+
+
+function update_1() { // рисую план, и точку доступа
+   // context.clearRect(0, 0, canvas.width, canvas.height);
+    //drawWalls();
+    // Рисуем точку:
+    var corMousX = 200;
+    var corMousY = 200;
+
+    context.beginPath();
+    context.fillStyle = 'red';
+    context.arc(corMousX, corMousY, 8, 0, 2 * Math.PI, true);
+    context.fill();
+    context.closePath();
+
+    // А теперь самое интересное.
+    const dA = .05;
+    for(let i = 1; i <= 14; i++){
+        for(let alpha = 0; alpha < Math.PI*2; alpha += dA){
+            radX = corMousX + 10*i*Math.cos(alpha);
+            radY = corMousY + 10*i*Math.sin(alpha);
+
+            // Считаем, сколько между нами и точкой стенок
+            const wallcount = walls.filter(wall => intersection_dubl_1(
+                wall[0], wall[1], wall[0]+wall[2], wall[1]+wall[3],
+                corMousX, corMousY, radX, radY
+            )).length;
+
+            // Если сигнал еще не пропал совсем - рисуем.
+            if(colors[i + wallcount*4]){
+                context.beginPath();
+                context.strokeStyle = colors[i - 1 + wallcount*4];
+                context.arc(corMousX, corMousY, i*10, alpha, alpha + dA);
+                context.stroke();
+                context.closePath();
+            }
+        }
+    }
+
+    requestAnimationFrame(update_1);
+}
+
+function update_2() { // рисую план, и точку доступа
+    // context.clearRect(0, 0, canvas.width, canvas.height);
+    //drawWalls();
+    // Рисуем точку:
+    var corMousX = 500;
+    var corMousY = 400;
+
+    context.beginPath();
+    context.fillStyle = 'red';
+    context.arc(corMousX, corMousY, 8, 0, 2 * Math.PI, true);
+    context.fill();
+    context.closePath();
+
+    // А теперь самое интересное.
+
+    const dA = .05;
+    for(let i = 1; i <= 14; i++){
+        for(let alpha = 0; alpha < Math.PI*2; alpha += dA){
+            radX = corMousX + 10*i*Math.cos(alpha);
+            radY = corMousY + 10*i*Math.sin(alpha);
+
+            // Считаем, сколько между нами и точкой стенок
+            const wallcount = walls.filter(wall => intersection_dubl_1(
+                wall[0], wall[1], wall[0]+wall[2], wall[1]+wall[3],
+                corMousX, corMousY, radX, radY
+            )).length;
+
+            // Если сигнал еще не пропал совсем - рисуем.
+            if(colors[i + wallcount*4]){
+                context.beginPath();
+                context.strokeStyle = colors[i - 1 + wallcount*4];
+                context.arc(corMousX, corMousY, i*10, alpha, alpha + dA);
+                context.stroke();
+                context.closePath();
+            }
+        }
+    }
+
+    requestAnimationFrame(update_2);
 }
